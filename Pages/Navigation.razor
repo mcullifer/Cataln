@@ -1,0 +1,118 @@
+﻿@page "/navigation"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@using CatalnWASM.Components
+@using CatalnWASM.Models
+
+
+<MudItem xs="12">
+    <MudContainer Class="d-flex flex-column justify-center" MaxWidth="MaxWidth.Medium">
+        <MudText Class="mt-4" Typo="Typo.h2" Align="Align.Center">Navigation</MudText>
+        <MudText Class="my-2" Typo="Typo.subtitle1" Align="Align.Center">Click 'Read More' on your field of interest to explore resources</MudText>
+        <MudDivider DividerType="DividerType.Middle" Class="my-4" />
+    </MudContainer>      
+</MudItem>
+
+<MudItem Class="my-4" xs="12">   
+    <MudContainer Class="justify-space-between" MaxWidth="MaxWidth.Large">
+        <MudToolBar Dense="true">
+            <MudContainer Class="ma-0 pa-0 d-flex flex-row align-center">
+                <MudIcon Icon="@Icons.Material.Rounded.FilterAlt" Color="Color.Inherit"/>
+                <MudChipSet @bind-SelectedChips="selected" MultiSelection="true" Filter="filter">
+                    <MudChip Color="Color.Success" Label="true" Text="Elementary" OnClick="@((e) => StateHasChanged())">Elementary</MudChip>
+                    <MudChip Color="Color.Secondary" Label="true" Text="Advanced" OnClick="@((e) => StateHasChanged())">Advanced</MudChip>
+                </MudChipSet>       
+            </MudContainer>
+            <MudSpacer />
+            <MudToggleIconButton Class="pa-2 justify-end" @bind-Toggled="@viewGrid" Color="Color.Inherit" Icon="@Icons.Material.Rounded.GridView" Title="Grid View" ToggledIcon="@Icons.Material.Rounded.ViewList" ToggledTitle="List View" ToggledColor="Color.Inherit" />                       
+        </MudToolBar>      
+    </MudContainer>    
+</MudItem>
+
+<MudItem Class="my-4" xs="12">
+    @{
+        IEnumerable<MathField> displayList = fields;
+        if(selected != null && selected.Length > 0)
+        {
+            displayList = displayList.Where(field => selected.Any<MudChip>(chip => chip.Text == field.Difficulty));               
+        }
+        if (viewGrid)
+        {
+            <MudContainer Class="d-flex flex-wrap justify-center" MaxWidth="MaxWidth.Large">
+                @foreach(MathField field in displayList)
+                {
+                    <Cards BigText="@field.FieldName" Difficulty="@field.Difficulty" />
+                }
+            </MudContainer>            
+        }
+        else
+        {
+            <MudContainer Class="d-flex justify-start" MaxWidth="MaxWidth.Large">              
+                <MudSimpleTable Hover="true" Bordered="true" Style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Difficulty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(MathField field in displayList)
+                            {
+                                <tr>
+                                    <td>@field.FieldName</td>
+                                    <td><MudChip OnClick=@((e) => Navigate(field.FieldName)) Label="true" Color="@(field.Difficulty == "Elementary" ? Color.Success : Color.Secondary)">@field.Difficulty</MudChip></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </MudSimpleTable>
+            </MudContainer>            
+        }
+    }
+    
+    
+</MudItem>
+
+@code {
+    bool filter = true;
+    MudChip[] selected;
+    bool viewGrid {  get; set; } = true;
+
+    private void ListToggle()
+    {
+        viewGrid = !viewGrid;
+        StateHasChanged();
+    }
+
+    private void Navigate(string fieldName)
+    {
+        NavigationManager.NavigateTo(fieldName.Insert(0, "/navigation/field/"));
+    }
+
+    //MATH STUFF
+    private List<MathField> fields { get; set; } = new List<MathField>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        fields = await Http.GetFromJsonAsync<List<MathField>>("sample-data/mathdesc.json");
+    }
+
+    public class MathField
+    {
+        public string FieldName { get; set; }
+
+        public string FieldDescription { get; set; }
+
+        public string Difficulty { get; set; }
+    }
+
+    //<MudList Class="d-flex flex-column" Clickable="true" Style="@(viewGrid ? "visibility:hidden;" : String.Empty)">
+    //    @foreach(MathField field in displayList)
+    //    {
+    //        <MudContainer Class="d-flex flex-row" MaxWidth="MaxWidth.Large">
+    //            <MudListItem Text="@field.FieldName" OnClick="@((e) => NavigationManager.NavigateTo(@field.FieldName.Insert(0,"/navigation/field/")))" />
+    //        </MudContainer>                       
+    //    }
+    //</MudList>
+}

@@ -1,0 +1,29 @@
+﻿@page "/navigation/field/{FieldName}"
+@inject NavigationManager NavigationManager
+
+
+<MudItem xs="12">
+    <MudContainer Class="d-flex justify-center" MaxWidth="MaxWidth.Small">
+        <MudBreadcrumbs Items="_items"></MudBreadcrumbs>
+    </MudContainer>      
+</MudItem>
+
+<MudItem xs="12">
+    <MudContainer Class="d-flex flex-column justify-center" MaxWidth="MaxWidth.Medium">
+        <MudText Class="mt-4" Typo="Typo.h2" Align="Align.Center">@FieldName</MudText>       
+        <MudDivider DividerType="DividerType.Middle" Class="my-4" />
+    </MudContainer>      
+</MudItem>
+
+
+@code {
+    [Parameter]
+    public string FieldName { get; set; } = "";
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>();
+
+    protected override void OnInitialized()
+    {
+        _items.Add(new BreadcrumbItem("Navigation", href: "/navigation"));
+        _items.Add(new BreadcrumbItem(FieldName.ToString(), href: NavigationManager.Uri));
+    }
+}

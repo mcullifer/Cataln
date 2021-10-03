@@ -1,0 +1,49 @@
+﻿@inject NavigationManager NavigationManager
+
+<MudContainer Class="my-2 justify-center" MaxWidth="MaxWidth.Small" >
+    <MudCard Elevation="_elevate" @onmouseenter="HoverBig" @onmouseleave="HoverSmall">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">@BigText</MudText>
+                @if(Difficulty == "Elementary")
+                {
+                    <MudChip Class="ma-0" Label="true" Color="Color.Success">@Difficulty</MudChip>
+                }
+                else if(Difficulty == "Advanced")
+                {
+                    <MudChip Class="ma-0" Label="true" Color="Color.Secondary">@Difficulty</MudChip>
+                }
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudText>@SmallText</MudText>        
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Class="ml-2 mr-auto" Variant="Variant.Text" Color="Color.Primary" OnClick="@((e) => NavigationManager.NavigateTo(@BigText.Insert(0,"/navigation/field/")))">Read More</MudButton>
+        </MudCardActions>
+    </MudCard>
+</MudContainer>
+
+
+@code {
+    int _elevate = 4;
+
+    private void HoverBig()
+    {
+       _elevate += 8;
+    }
+
+    private void HoverSmall()
+    {
+        _elevate -= 8;
+    }
+
+    [Parameter]
+    public string BigText { get; set; } = "";
+
+    [Parameter]
+    public string SmallText { get; set; } = "";
+
+    [Parameter]
+    public string Difficulty { get; set; } = "";
+}

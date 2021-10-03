@@ -1,0 +1,124 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="currentTheme"/>
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<style>
+    .logo {
+        color: #F5F5F5 ;
+        transition: color 0.2s;
+        transition-timing-function: ease;
+    }
+
+    .logo:hover{
+        color: #64B5F6;
+    }
+</style>
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudLink Color="Color.Inherit" Underline="Underline.None" Class="ml-3" Href="/">
+            <MudText Class="logo" Inline="true" Typo="Typo.h5" Align="Align.Center" >
+                <span style="font-weight: 500;">Cataln</span>        
+            </MudText>
+        </MudLink>
+        <MudSpacer />
+        <MudTooltip Text="Toggle Dark/Light Mode">
+            <MudIconButton Icon="@Icons.Material.Rounded.Brightness4" Color="Color.Inherit" OnClick="@((e) => DarkMode())"></MudIconButton>
+        </MudTooltip>       
+    </MudAppBar>
+
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        <NavMenu/>
+    </MudDrawer>
+
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = true;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    //THEME
+    protected override void OnInitialized()
+    {
+        currentTheme = darkTheme;
+    }
+
+    void DarkMode()
+    {
+        if (currentTheme == defaultTheme)
+        {
+            currentTheme = darkTheme;
+        }
+        else
+        {
+            currentTheme = defaultTheme;
+        }
+    }
+
+    MudTheme currentTheme = new MudTheme();
+    MudTheme defaultTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            Black = "#000000ff",
+            Background = "#ffffffff",
+            BackgroundGrey = "#f5f5f5ff",
+            Surface = "#ffffffff",
+            DrawerBackground = "#ffffffff",
+            DrawerText = "#424242ff",
+            DrawerIcon = "#616161ff",
+            AppbarBackground = "#27272f",
+            AppbarText = "#ffffffff",
+            TextPrimary = "#424242ff",
+            TextSecondary = "#00000089",
+            ActionDefault = "#00000089",
+            ActionDisabled = "#00000042",
+            ActionDisabledBackground = "#0000001e",
+            Divider = "#e0e0e0ff",
+            DividerLight = "#000000cc",
+            TableLines = "#e0e0e0ff",
+            LinesDefault = "#0000001e",
+            LinesInputs = "#bdbdbdff",
+            TextDisabled = "#00000060"
+        }
+    };
+
+    MudTheme darkTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            Black = "#27272f",
+            Background = "#32333d",
+            BackgroundGrey = "#27272f",
+            Surface = "#373740",
+            DrawerBackground = "#27272f",
+            DrawerText = "rgba(255,255,255, 0.50)",
+            DrawerIcon = "rgba(255,255,255, 0.50)",
+            AppbarBackground = "#27272f",
+            AppbarText = "rgba(255,255,255, 0.70)",
+            TextPrimary = "rgba(255,255,255, 0.90)",
+            TextSecondary = "rgba(255,255,255, 0.50)",
+            ActionDefault = "#adadb1",
+            ActionDisabled = "rgba(255,255,255, 0.26)",
+            ActionDisabledBackground = "rgba(255,255,255, 0.12)",
+            Divider = "rgba(255,255,255, 0.12)",
+            DividerLight = "rgba(255,255,255, 0.06)",
+            TableLines = "rgba(255,255,255, 0.12)",
+            LinesDefault = "rgba(255,255,255, 0.12)",
+            LinesInputs = "rgba(255,255,255, 0.3)",
+            TextDisabled = "rgba(255,255,255, 0.2)"
+        }
+
+    };
+
+}

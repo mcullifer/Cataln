@@ -1,0 +1,35 @@
+﻿
+
+<MudPaper Elevation="_elevate" Width="@thisWidth" Height="@thisHeight" Class="ma-3 pa-2" @onmouseenter="HoverBig" @onmouseleave="HoverSmall">
+	<MudText Typo="Typo.h4" Align="Align.Center" Class="ma-4">@BigText</MudText>
+    <MudText Typo="Typo.subtitle1" Align="Align.Center" Class="ma-4">@SmallText</MudText>
+</MudPaper>
+
+
+
+@code {
+    int _elevate = 4;
+
+    private void HoverBig()
+    {
+       _elevate += 8;
+    }
+
+    private void HoverSmall()
+    {
+        _elevate -= 8;
+    }
+
+    [Parameter]
+    public string BigText { get; set; } = "";
+
+    [Parameter]
+    public string SmallText { get; set; } = "";
+
+    [Parameter]
+    public string thisWidth { get; set; } = "300px";
+
+    [Parameter]
+    public string thisHeight { get; set; } = "";
+
+}

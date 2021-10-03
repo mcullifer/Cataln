@@ -1,0 +1,42 @@
+[
+  {
+    "FieldName": "Abstract Algebra",
+    "FieldDescription": "The study of algebraic structures",
+    "Difficulty": "Advanced"
+  },
+  {
+    "FieldName": "Analysis",
+    "FieldDescription": "The study of limits and related theories such as differentiation, integration, measure, infinite series, and analytic functions",
+    "Difficulty": "Advanced"
+  },
+  {
+    "FieldName": "Differential Equations",
+    "FieldDescription": "The study of equations that relate one or more functions and their derivatives",
+    "Difficulty": "Elementary"
+  },
+  {
+    "FieldName": "Geometry",
+    "FieldDescription": "The study of the properties of space that are related with distance, shape, size, and relative position of figures",
+    "Difficulty": "Elementary"
+  },
+  {
+    "FieldName": "Linear Algebra",
+    "FieldDescription": "The study of mathematical structures closed under the operations of addition and scalar multiplication which includes the theory of systems of linear equations, matrices, determinants, vector spaces, and linear transformations",
+    "Difficulty": "Elementary"
+  },
+  {
+    "FieldName": "Numerical Analysis",
+    "FieldDescription": "The study of algorithms that use numerical approximation for the problems of mathematical analysis",
+    "Difficulty": "Elementary"
+  },
+  {
+    "FieldName": "Number Theory",
+    "FieldDescription": "The study of integers and integer-valued functions",
+    "Difficulty": "Advanced"
+  },
+  {
+    "FieldName": "Deterministic Operations Research",
+    "FieldDescription": "The study of analytical methods to improve decision-making",
+    "Difficulty": "Elementary"
+  }
+]
