@@ -9,7 +9,7 @@ not guided by a university. Those who do not know better to know where to look o
 Cataln acts as a highway to help route individuals to where they should be going to obtain this information.
 
 ## How does it work?
-On the navigation page you can browse various fields in mathematics. These fields or organized by difficulty (elemantary, advanced) which you may filter by. From there you can
+On the navigation page you can browse various fields in mathematics. These fields or organized by difficulty (elementary, advanced) which you may filter by. From there you can
 select **Read More** on your field of interest to explore resources!
 
 <p align="center">
